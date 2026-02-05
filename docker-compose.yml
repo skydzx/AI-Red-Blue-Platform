@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  dashboard:
+    build: .
+    container_name: ai-red-blue-dashboard
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=${ENV:-development}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://user:pass@db:5432/airbp}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - db
+    networks:
+      - airbp-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: ai-red-blue-db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=airbp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - airbp-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: ai-red-blue-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - airbp-network
+
+networks:
+  airbp-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:

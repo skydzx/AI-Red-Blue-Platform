@@ -2,100 +2,132 @@
 
 ## Three-tier Security Operations Platform
 
-This project implements a three-tier architecture for a comprehensive security operations platform with AI-powered capabilities.
+A comprehensive security operations platform with AI-powered capabilities, featuring red team/blue team tools, threat detection, and automated response workflows.
 
-## Architecture Overview
+## Architecture
 
 ```
 ai-red-blue-platform/
-├── apps/                      # 应用层 - 独立应用
-│   ├── dashboard/            # Web仪表盘 (FastAPI)
-│   ├── cli/                   # 命令行工具
-│   ├── secbot/               # SecBot-AI应用
-│   └── range/                 # 漏洞靶场
+├── apps/                      # Application Layer
+│   ├── dashboard/            # Web Dashboard (FastAPI)
+│   ├── cli/                  # Command Line Interface
+│   ├── secbot/              # SecBot-AI Assistant
+│   └── range/               # Vulnerability Range
 │
-├── packages/                  # 服务层 - 业务逻辑包
-│   ├── red-team/             # 红队服务
-│   ├── blue-team/            # 蓝队服务
-│   ├── orchestration/         # 编排服务
-│   └── knowledge/            # 知识库服务
+├── packages/                 # Service Layer
+│   ├── red-team/            # Red Team Services
+│   ├── blue-team/           # Blue Team Services
+│   ├── orchestration/       # Orchestration Services
+│   └── knowledge/            # Knowledge Base Services
 │
-├── libs/                      # 核心层 - 共享库
-│   ├── core/                 # 核心分析库
-│   ├── ai/                   # AI核心库
-│   ├── security/             # 安全工具库
-│   └── common/               # 公共组件
+├── libs/                     # Core Layer
+│   ├── core/                # Core Analysis Library
+│   ├── ai/                 # AI Core Library
+│   ├── security/            # Security Tools Library
+│   └── common/             # Common Components
 │
-└── external-tools/           # 外部工具 (Monorepo)
+└── external-tools/          # External Tools (Monorepo)
 ```
 
-## Directory Structure
-
-### Core Layer (libs/)
-- **common/** - 公共组件 (配置、日志、异常、工具函数)
-- **core/** - 核心分析库 (告警、攻击、检测)
-- **ai/** - AI核心库 (LLM提供商适配、模型管理)
-- **security/** - 安全工具库 (扫描器、分析器)
-
-### Service Layer (packages/)
-- **red-team/** - 红队服务 (渗透测试、侦察、武器化)
-- **blue-team/** - 蓝队服务 (检测、响应、威胁情报)
-- **orchestration/** - 编排服务 (工作流、调度、预案)
-- **knowledge/** - 知识库服务 (文档、搜索、CVE)
-
-### Application Layer (apps/)
-- **dashboard/** - Web仪表盘
-- **cli/** - 命令行工具
-- **secbot/** - SecBot-AI安全助手
-- **range/** - 漏洞靶场
-
-## Installation
+## Quick Start
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd ai-red-blue-platform
+# Clone and enter directory
+git clone https://github.com/skydzx/AI-Red-Blue-Platform.git
+cd AI-Red-Blue-Platform
 
 # Install dependencies
-poetry install
+pip install -r requirements.txt
 
 # Configure environment
 cp .env.example .env
-# Edit .env with your configuration
+# Edit .env with your API keys
 
-# Run the application
-poetry run python apps/dashboard/main.py
+# Run Dashboard
+python apps/dashboard/main.py
+# Access at http://localhost:8000/docs for API docs
 ```
 
-## Usage
+## Features
 
-### Dashboard
-```bash
-poetry run python apps/dashboard/main.py
-# Access at http://localhost:8000
-```
+### Dashboard API Endpoints
 
-### CLI
-```bash
-poetry run ai-rb-cli --help
-poetry run ai-rb-cli status
-poetry run ai-rb-cli scan --type vulnerability target.com
-```
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Root info |
+| `/health` | GET | Health check |
+| `/api/v1/alerts` | GET | List alerts (supports `?severity=high&limit=100`) |
+| `/api/v1/alerts/{id}` | GET | Get alert details |
+| `/api/v1/alerts` | POST | Create alert |
+| `/api/v1/alerts/{id}` | PATCH | Update alert |
+| `/api/v1/detections` | GET | List detection rules |
+| `/api/v1/statistics` | GET | Platform statistics |
+| `/api/v1/chat` | POST | AI chat endpoint |
+| `/api/v1/utils/hash` | POST | Calculate hash |
+| `/api/v1/utils/encode` | POST | Encode data (base64/hex/url) |
+| `/api/v1/utils/decode` | POST | Decode data |
+| `/api/v1/demo/seed` | POST | Seed demo data |
 
-### SecBot
+### CLI Commands
+
 ```bash
-poetry run secbot
+# Status
+python apps/cli/main.py status
+python apps/cli/main.py version
+
+# Alerts
+python apps/cli/main.py list-alerts
+python apps/cli/main.py show-alert <alert_id>
+python apps/cli/main.py create-alert "Title" "Description" --severity high
+python apps/cli/main.py update-alert <alert_id> --status investigating
+
+# Security Utils
+python apps/cli/main.py hash "content" --algorithm sha256
+python apps/cli/main.py encode "content" --encoding base64
+python apps/cli/main.py decode "encoded_content"
+
+# Demo
+python apps/cli/main.py demo
+
+# Chat
+python apps/cli/main.py chat "Analyze this threat..." --provider openai
 ```
 
 ## Development
 
 ```bash
-# Run tests
-poetry run pytest
+# Install all libs
+cd libs/common && pip install -e .
+cd ../security && pip install -e .
+cd ../core && pip install -e .
+cd ../ai && pip install -e .
 
-# Format code
-poetry run black .
-poetry run ruff check .
+# Run tests
+pytest
+
+# Lint
+black .
+ruff check .
+mypy .
+
+# Docker
+docker-compose up -d
+```
+
+## Environment Variables
+
+```env
+# Application
+ENV=development
+LOG_LEVEL=INFO
+
+# AI Providers
+OPENAI_API_KEY=your-key
+ANTHROPIC_API_KEY=your-key
+
+# Database (optional)
+DATABASE_URL=postgresql://user:pass@localhost:5432/airbp
+REDIS_URL=redis://localhost:6379
 ```
 
 ## License
