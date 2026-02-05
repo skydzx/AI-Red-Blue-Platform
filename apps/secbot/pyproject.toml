@@ -1,0 +1,30 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ai-red-blue-secbot"
+version = "0.1.0"
+description = "SecBot-AI: AI-powered security assistant"
+authors = ["AI Red Blue Team"]
+
+[tool.poetry.scripts]
+secbot = "secbot.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ai-red-blue-common = { path = "../../libs/common" }
+ai-red-blue-core = { path = "../../libs/core" }
+ai-red-blue-ai = { path = "../../libs/ai" }
+openai = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+black = "^24.0.0"
+ruff = "^0.1.0"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100

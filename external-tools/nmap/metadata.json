@@ -1,0 +1,31 @@
+{
+  "name": "nmap",
+  "version": "7.94",
+  "description": "Network Mapper - Network exploration tool",
+  "category": "reconnaissance",
+  "license": "GPL-2.0",
+  "source_url": "https://nmap.org/",
+  "commands": {
+    "basic_scan": {
+      "command": "nmap -sV {target}",
+      "description": "Basic port and service discovery"
+    },
+    "full_scan": {
+      "command": "nmap -sS -sV -sC -O {target}",
+      "description": "Comprehensive scan with OS detection"
+    },
+    "quick_scan": {
+      "command": "nmap -F {target}",
+      "description": "Quick scan of common ports"
+    }
+  },
+  "parameters": {
+    "target": {
+      "type": "string",
+      "required": true,
+      "description": "Target IP or hostname"
+    }
+  },
+  "output_format": "text",
+  "timeout": 300
+}

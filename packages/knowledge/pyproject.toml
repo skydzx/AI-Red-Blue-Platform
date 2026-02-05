@@ -1,0 +1,28 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ai-red-blue-knowledge"
+version = "0.1.0"
+description = "Knowledge base service for security documentation"
+authors = ["AI Red Blue Team"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ai-red-blue-common = { path = "../../libs/common" }
+ai-red-blue-core = { path = "../../libs/core" }
+pydantic = "^2.5.0"
+chromadb = "^0.4.0"
+sentence-transformers = "^2.2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+black = "^24.0.0"
+ruff = "^0.1.0"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100

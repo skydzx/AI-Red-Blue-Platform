@@ -1,0 +1,39 @@
+{
+  "version": "0.1.0",
+  "description": "External security tools repository",
+  "tools": [
+    {
+      "name": "nmap",
+      "version": "7.94",
+      "description": "Network Mapper - Network exploration and port scanning",
+      "category": "reconnaissance",
+      "license": "GPL-2.0"
+    },
+    {
+      "name": "nuclei",
+      "version": "3.1.0",
+      "description": "Fast vulnerability scanner based on templates",
+      "category": "vulnerability_scanning",
+      "license": "MIT"
+    },
+    {
+      "name": "masscan",
+      "version": "1.3.2",
+      "description": "Mass IP port scanner for large scale scanning",
+      "category": "port_scanning",
+      "license": "GPL-2.0"
+    }
+  ],
+  "management": {
+    "sync_interval_hours": 24,
+    "verify_checksums": true,
+    "allowed_categories": [
+      "reconnaissance",
+      "vulnerability_scanning",
+      "port_scanning",
+      "web_scanning",
+      "exploitation",
+      "analysis"
+    ]
+  }
+}

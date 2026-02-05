@@ -1,0 +1,33 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ai-red-blue-dashboard"
+version = "0.1.0"
+description = "Web Dashboard for AI Red Blue Platform"
+authors = ["AI Red Blue Team"]
+
+[tool.poetry.scripts]
+dashboard = "dashboard.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.109.0"
+uvicorn = "^0.27.0"
+ai-red-blue-common = { path = "../../libs/common" }
+ai-red-blue-core = { path = "../../libs/core" }
+ai-red-blue-ai = { path = "../../libs/ai" }
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.23.0"
+httpx = "^0.25.0"
+black = "^24.0.0"
+ruff = "^0.1.0"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100

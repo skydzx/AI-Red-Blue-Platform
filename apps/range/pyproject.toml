@@ -1,0 +1,28 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ai-red-blue-range"
+version = "0.1.0"
+description = "Vulnerability Range for testing security tools"
+authors = ["AI Red Blue Team"]
+
+[tool.poetry.scripts]
+range = "range.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ai-red-blue-common = { path = "../../libs/common" }
+ai-red-blue-security = { path = "../../libs/security" }
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+black = "^24.0.0"
+ruff = "^0.1.0"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100

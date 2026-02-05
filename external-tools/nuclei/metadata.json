@@ -1,0 +1,32 @@
+{
+  "name": "nuclei",
+  "version": "3.1.0",
+  "description": "Fast vulnerability scanner based on templates",
+  "category": "vulnerability_scanning",
+  "license": "MIT",
+  "source_url": "https://github.com/projectdiscovery/nuclei",
+  "commands": {
+    "template_scan": {
+      "command": "nuclei -u {target} -t {templates}",
+      "description": "Scan target with specific templates"
+    },
+    "vulnerability_scan": {
+      "command": "nuclei -u {target} -severity critical,high,medium",
+      "description": "Scan for vulnerabilities by severity"
+    }
+  },
+  "parameters": {
+    "target": {
+      "type": "string",
+      "required": true,
+      "description": "Target URL or hostname"
+    },
+    "templates": {
+      "type": "string",
+      "required": false,
+      "description": "Path to templates directory"
+    }
+  },
+  "output_format": "json",
+  "timeout": 600
+}
